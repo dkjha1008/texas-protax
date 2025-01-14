@@ -1,10 +1,11 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref } from 'vue';
 import AppLayout from '@/Layouts/AppLayout.vue';
 import { debounce } from 'lodash-es';
 import axios from 'axios';
 
 const addressInput = ref('');
+const parcelInput = ref('');
 const addressSuggestions = ref([]);
 
 const fetchAddressSuggestions = debounce(async (query) => {
@@ -24,25 +25,38 @@ const fetchAddressSuggestions = debounce(async (query) => {
     }
 }, 300);
 
-const selectAddress = async (parcel, address) => {
+const handleFormSubmit = async () => {
+    if (!addressInput.value) {
+        alert("Please enter an address.");
+        return;
+    }
+
     try {
         const response = await axios.post(route('details.encrypt'), {
-            address: address,
-            parcel: parcel,
+            address: addressInput.value,
+            parcel_number: parcelInput.value,
         });
 
         const queryParams = new URLSearchParams({
             address: response.data.data.address,
-            parcel: response.data.data.parcel,
+            parcel_number: response.data.data.parcel_number,
         }).toString();
 
         window.location.href = `/details?${queryParams}`;
     } catch (error) {
-        console.error('Error processing selected address:', error);
+        console.error('Error processing address:', error);
     }
 };
 
+const selectAddress = async (parcel_number, address) => {
+    addressInput.value = address;
+    parcelInput.value = parcel_number;
+
+    // Clear suggestions list to hide it
+    addressSuggestions.value = [];
+};
 </script>
+
 
 
 <template>
@@ -55,7 +69,7 @@ const selectAddress = async (parcel, address) => {
                     </div>
                     <div class="p-2 mt-4 serch-section-main">
                         <div class="serch-section-inner">
-                            <form>
+                            <form @submit.prevent="handleFormSubmit">
                                 <span class="input-icon">
                                     <svg width="17" height="20" viewBox="0 0 17 20" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
@@ -71,13 +85,13 @@ const selectAddress = async (parcel, address) => {
                                 <button type="submit">See Reduction</button>
 
                                 <ul v-if="Object.keys(addressSuggestions).length > 0" class="suggestions-list">
-                                    <li v-for="(address, parcel) in addressSuggestions" :key="parcel"
-                                        @click="selectAddress(parcel, address)" class="suggestion-item">
+                                    <li v-for="(address, parcel_number) in addressSuggestions" :key="parcel_number"
+                                        @click="selectAddress(parcel_number, address)" class="suggestion-item">
                                         <div>
                                             {{ address }}
                                         </div>
                                         <div>
-                                            <strong>Parcel:</strong> {{ parcel }}
+                                            <strong>Parcel:</strong> {{ parcel_number }}
                                         </div>
                                         <br>
                                     </li>

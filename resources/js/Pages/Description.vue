@@ -8,8 +8,19 @@ defineProps({
     averageReductionPercent: Number,
     finalValue: Number,
     taxRate: Number,
-    parcelData: Object,
+    parcel: String,
+    potentialReduction: Object,
+    potentialSavings: Object,
 });
+
+const formattedPrice = (price) => {
+    return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(price);
+}
+
+const handleContinueClick = (hashCode) => {
+    const url = `https://customerportal.texasprotax.com/Neighborhood/${hashCode}`;
+    window.location.href = url;
+}
 
 </script>
 
@@ -32,12 +43,12 @@ defineProps({
                         {{ address }}
                     </h6>
                     <div class="reduction-sec">
-                        <h5>Average Reduction</h5>
-                        <h3>{{ averageReductionPercent }}%</h3>
+                        <h5>Potential Reduction</h5>
+                        <h3>{{ formattedPrice(potentialReduction) }}</h3>
                     </div>
                     <div class="reduction-sec">
-                        <h5>Value</h5>
-                        <h3>${{ finalValue }}</h3>
+                        <h5>Potential Savings</h5>
+                        <h3>{{ formattedPrice(potentialSavings) }}</h3>
                     </div>
                     <div class="reduction-sec">
                         <h5>Tax Rate</h5>
@@ -47,7 +58,7 @@ defineProps({
             </div>
             <div class="row">
                 <div class="text-center col-md-12">
-                    <button class="c-btn"> Continue</button>
+                    <button class="c-btn" @click="handleContinueClick(hashCode)">Continue</button>
                 </div>
             </div>
             <div class="mt-5 mb-5 row">
