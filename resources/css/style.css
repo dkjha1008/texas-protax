@@ -194,7 +194,7 @@ hr {
 
 .banner-bg {
     position: relative;
-    background-image: url(../img/3d-house-model.jpg);
+    background-image: url(../../public/img/3d-house-model.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
