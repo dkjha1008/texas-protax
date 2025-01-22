@@ -11,6 +11,7 @@ defineProps({
     parcel: String,
     potentialReduction: Object,
     potentialSavings: Object,
+    hashCode: String,
 });
 
 const formattedPrice = (price) => {
