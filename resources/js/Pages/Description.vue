@@ -19,6 +19,7 @@ const formattedPrice = (price) => {
 }
 
 const handleContinueClick = (hashCode) => {
+    console.log(hashCode);
     const url = `https://customerportal.texasprotax.com/Neighborhood/${hashCode}`;
     window.location.href = url;
 }
