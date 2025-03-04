@@ -56,6 +56,25 @@ const handleContinueClick = (hashCode) => {
                         <h5>Tax Rate</h5>
                         <h3>{{ taxRate }}%</h3>
                     </div>
+
+
+                </div>
+                <div>
+                    <p>
+                        <b>Disclaimer:</b>
+
+                        This estimate is based on our historical performance for the 2024 tax year within your
+                        neighborhood or, when neighborhood-specific data is statistically insufficient, within the
+                        broader market area.
+                    </p>
+
+                    <p>The projected tax savings are calculated using a hypothetical 2% tax rate.</p>
+
+                    <p>Actual savings may vary due to numerous factors, including jurisdictional differences,
+                        exemptions, property condition, and other variables affecting property tax protests.</p>
+
+                    <p>This map is intended for estimation purposes only and should not be relied upon as a guarantee of
+                        future results.</p>
                 </div>
             </div>
             <div class="row">
@@ -63,6 +82,7 @@ const handleContinueClick = (hashCode) => {
                     <button class="c-btn" @click="handleContinueClick(hashCode)">Continue</button>
                 </div>
             </div>
+
             <div class="mt-5 mb-5 row">
                 <div class="text-center col-md-12 started-text">
                     <h2>Getting started is easy</h2>
