@@ -274,7 +274,7 @@ export default {
     font-weight: 700;
     width: 100%;
     max-width: 325px;
-    padding: 18px 15px;
+    padding: 18px 22px;
 }
 
 .getting-starter-item .started-box h5.red {
