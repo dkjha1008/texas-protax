@@ -10,6 +10,6 @@ Route::get('/', function () {
 
 Route::get('/suggestions', [DetailsController::class, 'getSuggestions'])->name('details.suggestions');
 
-Route::get('/details/encrypt', [DetailsController::class, 'encryptData'])->name('details.encrypt');
+Route::post('/details/encrypt', [DetailsController::class, 'encryptData'])->name('details.encrypt');
 
 Route::get('/details', [DetailsController::class, 'index'])->name('details.index');
